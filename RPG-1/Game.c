@@ -11,10 +11,12 @@ int main(void)
 	char action = '0';
 
 	//Харрактеристики мостра
+	char monster_goblin_name[] = "Гоблин";
 	int monster_goblin_hp = 3;
 	int monster_goblin_damage = 1;
 	int monster_goblin_gold = 5;
 	//Временные переменные для боя,
+	char tempC_name_monster[] = "";
 	int tempI_hp_monster = 0;
 	int tempI_damage_monster = 0;
 	int tempI_gold_monster = 0;
@@ -47,7 +49,7 @@ int main(void)
 			//и монстер не считается мертвым, т.к. он найден и начинается бой
 			// изменятся будут именно они
 			if(action == 'i')
-			{
+			{				
 				tempI_hp_monster = monster_goblin_hp;
 				tempI_damage_monster = monster_goblin_damage;
 				tempI_gold_monster = monster_goblin_gold;
@@ -59,7 +61,8 @@ int main(void)
 		{
 			//деремся пока ХП монстра более нуля, к
 			//атака монстра
-			printf ("Ты видешь гоблина у него %d ХП\n",tempI_hp_monster);
+			printf ("Ты видешь %s", monster_goblin_name);
+			printf (" у него %d ХП\n",tempI_hp_monster);
 			printf ("Твое здоровье %d ХП\n 'a'Атакуем или 'e'бежим?\n", player_hp);
 			action = getchar();
 			getchar();
