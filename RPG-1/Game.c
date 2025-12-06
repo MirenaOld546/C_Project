@@ -108,7 +108,7 @@ int main(void)
 				player_gold += tempI_gold_monster;
 				player_total_score++;
 				tempI_score++;
-				printf("Гоблин убит!\n Ты получил %d  золота!\n", player_gold);
+				printf("Гоблин убит!\n Ты получил %d  золота! Теперь у тебя %d золота и %d ХП.\n", tempI_gold_monster, player_gold, player_hp);
 			}
 			
 			//Каждый 5 временных очков повышают стадию и обнуляются
