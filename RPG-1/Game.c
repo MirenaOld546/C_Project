@@ -65,7 +65,9 @@ int main(void)
 			//атака монстра
 			printf ("Ты видешь %s", monster_goblin_name);
 			printf (" у него %d ХП\n",tempI_hp_monster);
-			printf ("Твое здоровье %d ХП\n 'a'Атакуем или 'e'бежим?\n", player_hp);			
+			printf ("Твое здоровье %d ХП\n 'a'Атакуем или 'e'бежим?\n", player_hp);		
+			action = getchar();
+			getchar();	
 			//Монстр так же атакует тебя в ответ
 			if (action == 'a')
 			{
@@ -88,11 +90,11 @@ int main(void)
 			{
 				tempB_die_monster = true;
 				gold = gold + tempI_gold_monster;
+				player_total_score++;
 				printf("Гоблин убит!\n Ты получил %d  золота!\n", gold);
 			}
 			
-			action = getchar();
-			getchar();
+			
 			// Все проверки ниже сделаны для окончания блужданий или смерти-------------------
 			if (player_hp <= 0)
 			{
