@@ -11,18 +11,22 @@ int main(void)
 	char action = '0';
 	size_t tempST_length; //определяет длинну наименования монстра в инициализации
 	int i;
+	int stage = 1;
 
 	//Харрактеристики мостра
 	char monster_goblin_name[] = "Гоблин";
 	int monster_goblin_hp = 3;
 	int monster_goblin_damage = 1;
 	int monster_goblin_gold = 5;
+
 	//Временные переменные для боя,
 	char tempC_name_monster[10] = "          ";
 	int tempI_hp_monster = 0;
 	int tempI_damage_monster = 0;
 	int tempI_gold_monster = 0;
 	bool tempB_die_monster = true;
+	int tempI_score = 0;
+
 	// Харрактеристики игрока
 	int player_damage = 1;
 	int player_hp = 5;
@@ -103,7 +107,16 @@ int main(void)
 				tempB_die_monster = true;
 				player_gold += tempI_gold_monster;
 				player_total_score++;
+				tempI_score++;
 				printf("Гоблин убит!\n Ты получил %d  золота!\n", player_gold);
+			}
+			
+			//Каждый 5 временных очков повышают стадию и обнуляются
+			if (tempI_score >= 5)
+			{
+				stage++;
+				tempI_score = 0;
+				printf ("Поздравляю ты зашел дальше в лес, награды станет больше. \nГлубина изучения леса: %d.\n", stage);
 			}
 			
 			
@@ -114,6 +127,10 @@ int main(void)
 				player_gold = 0;
 				action = 'r';
 			}
+			if (action == 'r')
+			{
+			tempI_score = 0;
+			}
 
 		}
 		else //Если оно менее нуля то он считается мертвым
@@ -122,7 +139,7 @@ int main(void)
 		}
 
 	}
-	printf ("Прощай! Ты заработал %d золота. Убил %d монстров.\nНажми Enter клавишу.", player_gold, player_total_score);
+	printf ("Прощай! Ты заработал %d золота. Убил %d монстров.\nВошёл в глубь леса на %d.\nНажми Enter клавишу.", player_gold, player_total_score, stage);
 	action = getchar();
 	getchar();
 	return 0;
