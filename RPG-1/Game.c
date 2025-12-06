@@ -11,13 +11,13 @@ int main(void)
 	char action = '0';
 	size_t tempST_length; //определяет длинну наименования монстра в инициализации
 	int i;
-	int stage = 1;
+	int stage = 1; // Стадия игрыы (глубина в лес). Отвечает за глубину прохода в лес и награду
 
 	//Харрактеристики мостра
 	char monster_goblin_name[] = "Гоблин";
 	int monster_goblin_hp = 3;
 	int monster_goblin_damage = 1;
-	int monster_goblin_gold = 5;
+	int monster_goblin_gold = 4;
 
 	//Временные переменные для боя,
 	char tempC_name_monster[10] = "          ";
@@ -29,8 +29,8 @@ int main(void)
 
 	// Харрактеристики игрока
 	int player_damage = 1;
-	int player_hp = 5;
-	int player_hp_max = 5;
+	int player_hp = 10;
+	int player_hp_max = 10;
 	int player_total_score = 0;
 	int player_gold = 0;
 	
@@ -70,7 +70,7 @@ int main(void)
 				}			
 				tempI_hp_monster = monster_goblin_hp;
 				tempI_damage_monster = monster_goblin_damage;
-				tempI_gold_monster = monster_goblin_gold;
+				tempI_gold_monster = monster_goblin_gold + stage;
 				tempB_die_monster = false;
 			}
 		}
