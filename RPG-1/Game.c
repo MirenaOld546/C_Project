@@ -8,7 +8,6 @@ int main(void)
 	// Обязательно кодировать в ANSI или Windows-1251 иначе язык будет неправильно отображаться в программе на виндовс
 	//Системные Харрактеристики
 	char *locale = setlocale(LC_ALL, "");
-	int gold = 0;
 	char action = '0';
 	size_t tempST_length; //определяет длинну наименования монстра в инициализации
 	int i;
@@ -29,6 +28,7 @@ int main(void)
 	int player_hp = 5;
 	int player_hp_max = 5;
 	int player_total_score = 0;
+	int player_gold = 0;
 	
 
 	printf ("Привет путник, добро пожалоать в Си-Иур\n");
@@ -101,17 +101,17 @@ int main(void)
 			if (tempI_hp_monster <= 0)
 			{
 				tempB_die_monster = true;
-				gold += tempI_gold_monster;
+				player_gold += tempI_gold_monster;
 				player_total_score++;
-				printf("Гоблин убит!\n Ты получил %d  золота!\n", gold);
+				printf("Гоблин убит!\n Ты получил %d  золота!\n", player_gold);
 			}
 			
 			
 			// Все проверки ниже сделаны для окончания блужданий или смерти-------------------
 			if (player_hp <= 0)
 			{
-				printf ("Ты умер! %d золота осталось в лесу.\n", gold);
-				gold = 0;
+				printf ("Ты умер! %d золота осталось в лесу.\n", player_gold);
+				player_gold = 0;
 				action = 'r';
 			}
 
@@ -122,7 +122,7 @@ int main(void)
 		}
 
 	}
-	printf ("Прощай! Ты заработал %d золота. Убил %d монстров.\nНажми Enter клавишу.", gold, player_total_score);
+	printf ("Прощай! Ты заработал %d золота. Убил %d монстров.\nНажми Enter клавишу.", player_gold, player_total_score);
 	action = getchar();
 	getchar();
 	return 0;
