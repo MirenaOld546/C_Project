@@ -10,6 +10,8 @@ int main(void)
 	char *locale = setlocale(LC_ALL, "");
 	int gold = 0;
 	char action = '0';
+	size_t tempST_length; //определяет длинну наименования монстра в инициализации
+	int i;
 
 	//Харрактеристики мостра
 	char monster_goblin_name[] = "Гоблин";
@@ -17,7 +19,7 @@ int main(void)
 	int monster_goblin_damage = 1;
 	int monster_goblin_gold = 5;
 	//Временные переменные для боя,
-	char tempC_name_monster[] = "";
+	char tempC_name_monster[10] = "          ";
 	int tempI_hp_monster = 0;
 	int tempI_damage_monster = 0;
 	int tempI_gold_monster = 0;
@@ -27,6 +29,7 @@ int main(void)
 	int player_hp = 5;
 	int player_hp_max = 5;
 	int player_total_score = 0;
+	
 
 	printf ("Привет путник, добро пожалоать в Си-Иур\n");
 	printf ("Ты выходишь на тропу приключений и тебя ждут монстры!)\n");
@@ -51,7 +54,16 @@ int main(void)
 			//и монстер не считается мертвым, т.к. он найден и начинается бой
 			// изменятся будут именно они
 			if(action == 'i')
-			{				
+			{	
+				tempST_length = sizeof(monster_goblin_name)/sizeof(char);//определяем длину массива
+				for (i=0;i<tempST_length;i++)
+				{
+					tempC_name_monster[i] = monster_goblin_name[i];
+				}	
+				for (i=tempST_length;i<10;i++)
+				{
+					tempC_name_monster[i] = ' ';
+				}			
 				tempI_hp_monster = monster_goblin_hp;
 				tempI_damage_monster = monster_goblin_damage;
 				tempI_gold_monster = monster_goblin_gold;
@@ -63,7 +75,7 @@ int main(void)
 		{
 			//деремся пока ХП монстра более нуля, к
 			//атака монстра
-			printf ("Ты видешь %s", monster_goblin_name);
+			printf ("Ты видешь %s", tempC_name_monster);
 			printf (" у него %d ХП\n",tempI_hp_monster);
 			printf ("Твое здоровье %d ХП\n 'a'Атакуем или 'e'бежим?\n", player_hp);		
 			action = getchar();
@@ -71,16 +83,16 @@ int main(void)
 			//Монстр так же атакует тебя в ответ
 			if (action == 'a')
 			{
-				tempI_hp_monster = tempI_hp_monster - player_damage;
+				tempI_hp_monster -= player_damage;
 				printf ("Нанесен %d урон монстру\n", player_damage);
-				player_hp = player_hp - tempI_damage_monster;
+				player_hp -= tempI_damage_monster;
 				printf ("Тебе нанесен %d урон\n", tempI_damage_monster);
 			}
 
 			if (action == 'e')
 			{
 				printf ("Ты убежал!\n");
-				player_hp = player_hp - tempI_damage_monster;
+				player_hp -= tempI_damage_monster;
 				printf ("Тебе нанесен %d урон\n", tempI_damage_monster);
 				tempB_die_monster = true;
 			}
@@ -89,7 +101,7 @@ int main(void)
 			if (tempI_hp_monster <= 0)
 			{
 				tempB_die_monster = true;
-				gold = gold + tempI_gold_monster;
+				gold += tempI_gold_monster;
 				player_total_score++;
 				printf("Гоблин убит!\n Ты получил %d  золота!\n", gold);
 			}
@@ -98,7 +110,7 @@ int main(void)
 			// Все проверки ниже сделаны для окончания блужданий или смерти-------------------
 			if (player_hp <= 0)
 			{
-				printf ("Ты умер! Все золото осталось в лесу.");
+				printf ("Ты умер! %d золота осталось в лесу.\n", gold);
 				gold = 0;
 				action = 'r';
 			}
