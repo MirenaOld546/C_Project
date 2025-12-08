@@ -15,6 +15,10 @@ int main(void)
 	int i;
 	int stage = 1; // Стадия игрыы (глубина в лес). Отвечает за глубину прохода в лес и награду
 
+	//Параметры еды
+	int eat_gold = 2;
+	int eat_hp = 1;
+
 	//Харрактеристики мостра
 	char monster_goblin_name[] = "Гоблин";
 	int monster_goblin_hp = 3;
@@ -29,12 +33,17 @@ int main(void)
 	bool tempB_die_monster = true;
 	int tempI_score = 0;
 
+	//Временные переменные
+	int tempI_shop = 0;
+
 	// Харрактеристики игрока
 	int player_damage = 1;
 	int player_hp = 10;
 	int player_hp_max = 10;
 	int player_total_score = 0;
-	int player_gold = 0;
+	int player_gold = 10;
+	int player_eat = 10;
+	int player_eat_max = 20;
 	
 
 	printf ("Привет путник, добро пожалоать в Си-Иур\n");
@@ -50,7 +59,7 @@ int main(void)
 		{
 		while(action != 'r') //Город
 		{
-			printf ("Ты в городе! \nНа указателях написано: 'r'Выход, 's'Площадь. \n");
+			printf ("Ты в городе! \nНа указателях написано: 'r'Перекресток, 's'Площадь, 't'Таверна,. \n");
 			action = getchar();
 			getchar();
 
@@ -61,6 +70,36 @@ int main(void)
 					printf ("Ты на площади! Тут красиво. \nНа указателях написано: 'c'Выход. \n");
 					action = getchar();
 					getchar();
+				}
+			}
+
+			if (action == 't')//Город - Таверна
+			{
+				while(action != 'c')
+				{
+					printf ("Ты в таверне! Тут тепло и вкусно пахнет. \nДверь ведет в 'c'Город. \n"
+						"За прилавком стоит хозяин заведения а на стойке меню \"1 порция = %d ХП = %d Золотой\". \n'k'Купить? \n", eat_hp, eat_gold);
+					action = getchar();
+					getchar();
+					if (action == 'k')//Покупка еды
+					{
+						printf ("Сейчас с собой %d штук. \nДо максимума %d штук. \nСколько берешь:", player_eat, (player_eat_max - player_eat));
+						scanf("%d", &tempI_shop);
+						
+						if((player_eat_max - player_eat) >= tempI_shop)
+						{
+							if(player_gold >= (tempI_shop * eat_gold))
+							{
+								player_eat += tempI_shop;
+								player_gold -= tempI_shop * eat_gold;
+								printf ("\nСейчас с собой: %d. Остаток золота: %d. \n", player_eat, player_gold);
+							}
+							else
+								printf ("\nМало денег!\n");
+						}
+						else
+							printf ("\nМало места!\n");
+					}
 				}
 			}
 		}
